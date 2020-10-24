@@ -46,15 +46,15 @@ authApi(app)
 
 // app.use('/login', authApi());
 
-// if (!config.local) {
+if (!config.local) {
     https.createServer({
         key: fs.readFileSync('key.pem'),
         cert: fs.readFileSync('cert.pem')
     }, app).listen(config.port);
     console.log(`Conectado en https://localhost:${config.port}`);
-//}
-// else {
-//     app.listen(config.port, () => {
-//         console.log(`Conectado en http://localhost:${config.port}`);
-//     });
-// }
+}
+else {
+    app.listen(config.port, () => {
+        console.log(`Conectado en http://localhost:${config.port}`);
+    });
+}
