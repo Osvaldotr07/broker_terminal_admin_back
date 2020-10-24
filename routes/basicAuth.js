@@ -23,6 +23,7 @@ function authApi(app){
 
     router.post('/sign-in', async(req, res, next) => {
         passport.authenticate('basic', function(error, user){
+            console.log(user)
             try{
                 if(error || !user){
                     next(boom.unauthorized())
@@ -60,6 +61,7 @@ function authApi(app){
                 })
             }
             catch(err){
+                console.log(user)
                 next(err)
             }
         })(req, res, next)
