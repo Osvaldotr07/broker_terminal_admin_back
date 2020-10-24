@@ -15,9 +15,7 @@ const cors = require('cors')
 //routes
 const authApi = require('./routes/basicAuth')
 
-app.use(cors({
-    origin: 'https://broker-web.herokuapp.com/'
-}))
+app.use(cors())
 app.use(express.json());
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(helmet());
