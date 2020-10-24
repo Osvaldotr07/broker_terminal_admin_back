@@ -22,6 +22,7 @@ function authApi(app){
     const usersService = new UserService()
 
     router.post('/sign-in', async(req, res, next) => {
+        console.log('Ando aqui')
         passport.authenticate('basic', function(error, user){
             console.log("user basic",user)
             try{
