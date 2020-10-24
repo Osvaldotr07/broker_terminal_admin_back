@@ -10,10 +10,14 @@ const oidc = require('./InitializerLogin/oidc');
 const fs = require('fs')
 const https = require('https')
 const cookieParser = require('cookie-parser');
+const cors = require('cors')
 
 //routes
 const authApi = require('./routes/basicAuth')
 
+app.use(cors({
+    origin: 'https://broker-web.herokuapp.com/'
+}))
 app.use(express.json());
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(helmet());
