@@ -14,6 +14,7 @@ const cors = require('cors')
 
 //routes
 const authApi = require('./routes/basicAuth')
+const formApi = require('./routes/forms')
 
 app.use(cors())
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(helmet());
 app.use(cookieParser())
 
 authApi(app)
+formApi(app)
 
 // app.use(
 //     session({
