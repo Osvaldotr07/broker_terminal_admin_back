@@ -8,7 +8,6 @@ class UserService {
     }
 
     async getUser({ email }){
-        console.log('users dskjds: ', email)
         const [ user ] = await this.mongoDB.getAll(this.collection, { email })
         console.log(user)
         return user
