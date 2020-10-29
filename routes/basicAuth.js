@@ -2,17 +2,16 @@ const express = require('express')
 const passport = require('passport')
 const boom = require('@hapi/boom')
 const jwt = require('jsonwebtoken')
-
+require('dotenv').config()
 
 const { config } = require('../config')
-
+const { ENV } = process.env
 const ApiKeysService = require('../services/apiKeys')
 const { createUserSchema, createProviderUserSchema } = require('../utils/schemas/users')
 const UserService = require('../services/users')
 
 //basic strategy
 require('../utils/auth/strategies/basic')
-console.log(config.authJwtSecret)
 function authApi(app){
    
     const router = express.Router()
@@ -22,7 +21,6 @@ function authApi(app){
     const usersService = new UserService()
 
     router.post('/sign-in', async(req, res, next) => {
-        console.log('Ando aqui')
         passport.authenticate('basic', function(error, user){
             console.log("user basic",user)
             try{
@@ -53,7 +51,10 @@ function authApi(app){
                     const token = jwt.sign(payload, config.authJwtSecret, {
                         expiresIn: '15m'
                     })
-
+                    res.cookie('token', token, {
+                        httpOnly: !(ENV === 'development'),
+                        secure: !(ENV === 'development'),
+                      });
                     return res.status(200).json({
                         token,
                         user: { id, name, email }
@@ -62,7 +63,6 @@ function authApi(app){
                 })
             }
             catch(err){
-                console.log(user)
                 next(err)
             }
         })(req, res, next)
