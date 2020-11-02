@@ -56,7 +56,7 @@ function formsApi(app ){
 
     router.delete(
         '/:formId', 
-        // passport.authenticate('jwt', {session: false}),
+        passport.authenticate('jwt', {session: false}),
         async (req, res, next) => {
            const {formId} = req.params
            console.log(req.params)
