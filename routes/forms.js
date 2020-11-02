@@ -30,6 +30,7 @@ function formsApi(app ){
             }
             catch(err){
                 console.log(err)
+                next(err)
             }
         }
     )
@@ -50,6 +51,24 @@ function formsApi(app ){
             catch(err){
                 next(err)
             }
+        }
+    )
+
+    router.delete(
+        '/:formId', 
+        // passport.authenticate('jwt', {session: false}),
+        async (req, res, next) => {
+           const {formId} = req.params
+           console.log(req.params)
+           try{
+               const idForm = await formService.deleteForm({formId})
+               res.status(200).json({
+                   message: 'removed'
+               })
+           }
+           catch(err){
+               next(err)
+           }
         }
     )
 

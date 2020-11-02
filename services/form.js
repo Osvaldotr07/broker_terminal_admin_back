@@ -36,6 +36,7 @@ class FormService {
     }
 
     async deleteForm({ formId }){
+        console.log(formId)
         const deleteFormId = await this.mongoDB.delete(this.collection, formId)
         return deleteFormId
     }
