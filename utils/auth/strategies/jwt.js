@@ -12,7 +12,6 @@ passport.use(new Strategy({
     },
     
     async function(tokenPayload, cb){
-        console.log(tokenPayload)
         const usersService = new UsersService()
 
         try {

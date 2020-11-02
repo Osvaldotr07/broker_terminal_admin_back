@@ -16,13 +16,11 @@ function formsApi(app ){
 
     const formService =new FormService()
 
-    router.get(
+    router.post(
         '/', 
         passport.authenticate('jwt', {session: false}), 
         async(req, res, next) => {
-
-            const { email } = req.query
-
+            const { email } = req.body
             try {
                 const forms = await formService.getForms({ email })
                 res.status(200).json({
@@ -31,7 +29,7 @@ function formsApi(app ){
                 })
             }
             catch(err){
-                next(err)
+                console.log(err)
             }
         }
     )
@@ -56,10 +54,11 @@ function formsApi(app ){
     )
 
     router.post(
-        '/',
+        '/createForm',
         passport.authenticate('jwt', { session: false }),
         async (req, res, next) => {
             const { body: form } = req
+            console.log(req.body)
             try{
                 const createFormId = await formService.createForm({ form })
                 res.status(200).json({

@@ -7,10 +7,11 @@ class FormService {
         this.mongoDB = new MongoLib()
     }
 
-    async getForms({ user }){
-        const query = user && { user: {$in: users }}
-        const forms = await this.mongoDB.getAll(this.collection, query)
-        return forms || []
+    async getForms({ email }){
+            const query = { userEmail: email}
+            const forms = await this.mongoDB.getAll(this.collection, query)
+            return forms || []
+        
     }
 
     async getForm( formId ){
