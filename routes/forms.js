@@ -91,7 +91,7 @@ function formsApi(app ){
         }
     )
 
-    router.put ('/updateForm', passport.authenticate('jwt', {session: false}) ,async (req, res, next) => {
+    router.put('/updateForm', passport.authenticate('jwt', {session: false}) ,async (req, res, next) => {
         const { body: form } = req
         const formId = form._id
         try {
@@ -103,6 +103,7 @@ function formsApi(app ){
             })
         }
         catch(err){
+            console.log(err)
             next(err)
         }
     })
