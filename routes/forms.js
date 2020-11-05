@@ -90,6 +90,22 @@ function formsApi(app ){
             }
         }
     )
+
+    router.patch('/', passport.authenticate('jwt', {session: false}) ,async (req, res, next) => {
+        const { body: form } = req
+        const formId = form._id
+        try {
+            delete form._id
+            const updateFormId = await formService.updateForm( formId, form )
+            res.status(200).json({
+                data: updateFormId,
+                message: 'Form updated'
+            })
+        }
+        catch(err){
+            next(err)
+        }
+    })
 }
 
 module.exports = formsApi

@@ -30,7 +30,7 @@ class FormService {
         return patchFormId
     }
 
-    async updateForm({ formId, form } = {}){
+    async updateForm( formId, form){
         const updateFormId = await this.mongoDB.update(this.collection, formId, form)
         return updateFormId
     }
