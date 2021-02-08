@@ -15,6 +15,7 @@ const cors = require('cors')
 //routes
 const authApi = require('./routes/basicAuth')
 const formApi = require('./routes/forms')
+const emailApi = require('./routes/emailRoutes')
 
 app.use(cors())
 app.use(express.json());
@@ -24,7 +25,7 @@ app.use(cookieParser())
 
 authApi(app)
 formApi(app)
-
+emailApi(app)
 // app.use(
 //     session({
 //         secret: 'brokerwebapp',
