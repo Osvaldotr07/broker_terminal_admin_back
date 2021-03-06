@@ -19,6 +19,7 @@ const formApi = require('./routes/forms')
 const emailApi = require('./routes/emailRoutes')
 
 app.use(cors())
+app.options('*', cors());
 app.use(express.json());
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(helmet());
