@@ -66,28 +66,6 @@ function authApi(app) {
       }
     })(req, res, next);
   });
-
-  router.post("/token", async (req, res) => {
-    const {token} = req.body
-    console.log(token)
-    if (token) {
-      jwt.verify(token, config.authJwtSecret, (err, encoded) => {
-        if (err) {
-          console.log(err)
-          res.status(401).json({
-            error: err
-          })
-        } else {
-          console.log('entre')
-          res.status(201)
-        }
-      });
-    } else {
-      console.log(' no hay nada')
-      res.status(401)
-    }
-  });
-
   router.post("/sign-up", async (req, res, next) => {
     const { body: user } = req;
     try {
