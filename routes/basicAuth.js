@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const boom = require("@hapi/boom");
 const jwt = require("jsonwebtoken");
+const axios = require('axios')
 require("dotenv").config();
 
 const { config } = require("../config");
@@ -21,6 +22,32 @@ function authApi(app) {
 
   const apiKeysService = new ApiKeysService();
   const usersService = new UserService();
+
+  router.post('/toke-recaptcha', async(req, res, next) => {
+    const {tokenRecapcha} = req.body
+    console.log(req.body)
+    let catResponse = await axios(
+      "https://www.google.com/recaptcha/api/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*'
+          
+        },
+        params:{
+          secret: process.env.RECAPCHA_TOKEN_SECRET,
+          response: tokenRecapcha
+      }
+      }
+    );
+
+    console.log(catResponse.data)
+
+    res.status(200).json({
+      data: catResponse.data
+    })
+  })
 
   router.post("/sign-in", async (req, res, next) => {
     passport.authenticate("basic", function (error, user) {
