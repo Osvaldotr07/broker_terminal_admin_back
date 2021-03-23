@@ -16,9 +16,9 @@ function formsApi(app) {
       session: false,
     }),
     async (req, res, next) => {
-      const { email } = req.body;
+      // const { email } = req.body;
       try {
-        const forms = await formService.getForms({ email });
+        const forms = await formService.getForms(null);
         res.status(200).json({
           data: forms,
           message: "Form List",
