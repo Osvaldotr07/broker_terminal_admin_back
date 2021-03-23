@@ -8,8 +8,8 @@ class FormService {
     }
 
     async getForms({ email }){
-            const query = { userEmail: email}
-            const forms = await this.mongoDB.getAll(this.collection, query)
+            // const query = { userEmail: email}
+            const forms = await this.mongoDB.getAll(this.collection)
             return forms || []
         
     }
