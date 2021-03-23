@@ -10,15 +10,15 @@ function formsApi(app) {
   const router = express.Router();
   app.use("/api/forms", router);
   const formService = new FormService();
-  router.post(
+  router.get(
     "/",
-    passport.authenticate("jwt", {
-      session: false,
-    }),
+    // passport.authenticate("jwt", {
+    //   session: false,
+    // }),
     async (req, res, next) => {
       // const { email } = req.body;
       try {
-        const forms = await formService.getForms(null);
+        const forms = await formService.getForms();
         res.status(200).json({
           data: forms,
           message: "Form List",

@@ -7,7 +7,7 @@ class FormService {
         this.mongoDB = new MongoLib()
     }
 
-    async getForms({ email }){
+    async getForms(){
             // const query = { userEmail: email}
             const forms = await this.mongoDB.getAll(this.collection)
             return forms || []
