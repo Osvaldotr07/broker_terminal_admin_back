@@ -26,27 +26,32 @@ function authApi(app) {
   router.post('/toke-recaptcha', async(req, res, next) => {
     const {tokenRecapcha} = req.body
     console.log(req.body)
-    let catResponse = await axios(
-      "https://www.google.com/recaptcha/api/siteverify",
-      {
-        method: "POST",
-        headers: {
-          "Content-type": 'application/x-www-form-urlencoded',
-          'Access-Control-Allow-Origin': '*'
-          
-        },
-        params:{
-          secret: process.env.RECAPCHA_TOKEN_SECRET,
-          response: tokenRecapcha
-      }
-      }
-    );
-
-    console.log(catResponse.data)
-
-    res.status(200).json({
-      data: catResponse.data
-    })
+    try {
+      let catResponse = await axios(
+        "https://www.google.com/recaptcha/api/siteverify",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": 'application/x-www-form-urlencoded',
+            'Access-Control-Allow-Origin': '*'
+            
+          },
+          params:{
+            secret: process.env.RECAPCHA_TOKEN_SECRET,
+            response: tokenRecapcha
+        }
+        }
+      );
+  
+      console.log(catResponse.data)
+  
+      res.status(200).json({
+        data: catResponse.data
+      })
+    }
+    catch(error){
+      res.status(403)
+    }
   })
 
   router.post("/sign-in", async (req, res, next) => {
@@ -89,10 +94,11 @@ function authApi(app) {
           });
         });
       } catch (err) {
-        next(err);
+        next(err);Z
       }
     })(req, res, next);
   });
+
   router.post("/sign-up", async (req, res, next) => {
     const { body: user } = req;
     try {

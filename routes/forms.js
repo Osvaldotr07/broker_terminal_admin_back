@@ -12,9 +12,9 @@ function formsApi(app) {
   const formService = new FormService();
   router.get(
     "/",
-    // passport.authenticate("jwt", {
-    //   session: false,
-    // }),
+    passport.authenticate("jwt", {
+      session: false,
+    }),
     async (req, res, next) => {
       // const { email } = req.body;
       try {
@@ -108,6 +108,7 @@ function formsApi(app) {
     async (req, res, next) => {
       const { body: form } = req;
       const formId = form._id;
+      console.log(formId)
       try {
         delete form._id;
         const updateFormId = await formService.updateForm(formId, form);
