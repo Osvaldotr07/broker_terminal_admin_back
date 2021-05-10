@@ -25,7 +25,6 @@ function authApi(app) {
 
   router.post('/toke-recaptcha', async(req, res, next) => {
     const {tokenRecapcha} = req.body
-    console.log(req.body)
     try {
       let catResponse = await axios(
         "https://www.google.com/recaptcha/api/siteverify",
@@ -42,8 +41,6 @@ function authApi(app) {
         }
         }
       );
-  
-      console.log(catResponse.data)
   
       res.status(200).json({
         data: catResponse.data
@@ -65,12 +62,6 @@ function authApi(app) {
           if (error) {
             next(error);
           }
-
-          // const apiKey = await apiKeysService.getApiKey({ token: apiKeyToken })
-
-          // if(!apiKey){
-          //     next(boom.unauthorized())
-          // }
 
           const { _id: id, name, email } = user;
 
@@ -111,6 +102,30 @@ function authApi(app) {
       console.log("error", err);
     }
   });
+
+  router.post('/update-user', async(req, res, next) => {
+    const {body: user } = req
+
+    try {
+      const updateUserId = await usersService.updateUser({user})
+
+      if(updateUserId){
+        res.status(200).json({
+          data: updateUserId,
+          message: "user updated",
+        })
+      }
+      else {
+        res.status(403).json({
+          data: false,
+          message: "Faild updated",
+        })
+      }
+    }
+    catch(error){
+      throw error
+    }
+  })
 
   router.post("/sign-provider", async function (req, res, next) {
     const { body } = req;

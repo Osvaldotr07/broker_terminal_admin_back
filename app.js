@@ -17,6 +17,7 @@ const cors = require('cors')
 const authApi = require('./routes/basicAuth')
 const formApi = require('./routes/forms')
 const emailApi = require('./routes/emailRoutes')
+const usersApi = require('./routes/users')
 
 app.use(cors())
 app.options('*', cors());
@@ -28,30 +29,7 @@ app.use(cookieParser())
 authApi(app)
 formApi(app)
 emailApi(app)
-// app.use(
-//     session({
-//         secret: 'brokerwebapp',
-//         resave: true,
-//         saveUninitialized: true,
-//         proxy: true,
-//     })
-// );
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// passport.serializeUser(function (user, cb) {
-//     console.log(user);
-//     cb(null, user);
-// });
-
-// passport.deserializeUser(function (obj, cb) {
-//     cb(null, obj);
-// });
-
-// oidc(passport);
-
-// app.use('/login', authApi());
+usersApi(app)
 
 if (!config.local) {
     https.createServer({
