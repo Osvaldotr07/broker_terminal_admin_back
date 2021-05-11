@@ -55,14 +55,17 @@ function authApi(app) {
     passport.authenticate("basic", function (error, user) {
       try {
         if (error || !user) {
-          next(boom.unauthorized());
+          console.log(error)
+          return res.status(401).json({
+            message: error.payload.message,
+            error: error.payload.error
+          })
         }
 
         req.login(user, { session: false }, async function (error) {
           if (error) {
             next(error);
           }
-
           const { _id: id, name, email } = user;
 
           const payload = {
@@ -85,7 +88,7 @@ function authApi(app) {
           });
         });
       } catch (err) {
-        next(err);Z
+        next(err);
       }
     })(req, res, next);
   });
