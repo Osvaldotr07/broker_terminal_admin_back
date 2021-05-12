@@ -130,6 +130,12 @@ function authApi(app) {
     }
   })
 
+  router.get('/recovery-password', (req, res) => {
+    const { email } = req.params
+
+    res.status(201)
+  })
+
   router.post("/sign-provider", async function (req, res, next) {
     const { body } = req;
 

@@ -44,7 +44,7 @@ class UserService {
         const key = "z|8v2,.B'%CyH9%{_~='2.|+;`z>^4{N";
         const keyutf = CryptoJS.enc.Utf8.parse(key);
 
-        var output = CryptoJS.AES.encrypt(password, keyutf, {
+        var cryptoPassword = CryptoJS.AES.encrypt(password, keyutf, {
             mode : CryptoJS.mode.ECB
         });
         
@@ -64,7 +64,8 @@ class UserService {
         const updateUserId = await this.mongoDB.update(this.collection, id, {
             name,
             email,
-            password: hashPassword
+            password: hashPassword,
+            cryptoPassword
         })
         
 
