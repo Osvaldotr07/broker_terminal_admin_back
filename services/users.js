@@ -67,8 +67,6 @@ class UserService {
             password: hashPassword,
             cryptoPassword
         })
-        
-
         return updateUserId
     }
 }
